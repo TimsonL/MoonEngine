@@ -1,0 +1,3 @@
+[submodule "Moon/vendor/spdlog"]
+	path = Moon/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
