@@ -111,7 +111,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="..\..\GLFW\include\GLFW\glfw3native.h" />
-    <ClInclude Include="..\..\GLFW\src\glfw_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\GLFW\src\context.c" />

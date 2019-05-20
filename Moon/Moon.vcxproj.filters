@@ -25,10 +25,10 @@
     <ClInclude Include="src\Moon\Event\Event.h">
       <Filter>Moon\Event</Filter>
     </ClInclude>
-    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Moon\Log\Log.h">
       <Filter>Moon\Log</Filter>
     </ClInclude>
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Moon\Application.cpp">
@@ -37,9 +37,9 @@
     <ClCompile Include="src\Moon\Event\Event.cpp">
       <Filter>Moon\Event</Filter>
     </ClCompile>
-    <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\Moon\Log\Log.cpp">
       <Filter>Moon\Log</Filter>
     </ClCompile>
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
 </Project>
