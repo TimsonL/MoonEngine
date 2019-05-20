@@ -4,6 +4,12 @@
     <Filter Include="Moon">
       <UniqueIdentifier>{9E2F897C-8A66-8A0D-3353-70101F69060F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Moon\Event">
+      <UniqueIdentifier>{6F6FA7E5-5B27-E932-C42E-C28EB0058423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Moon\Log">
+      <UniqueIdentifier>{6FE6CEF6-5BB3-2902-84CC-17AA70F85E90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Moon.h" />
@@ -16,18 +22,24 @@
     <ClInclude Include="src\Moon\EntryPoint.h">
       <Filter>Moon</Filter>
     </ClInclude>
-    <ClInclude Include="src\Moon\Log.h">
-      <Filter>Moon</Filter>
+    <ClInclude Include="src\Moon\Event\Event.h">
+      <Filter>Moon\Event</Filter>
     </ClInclude>
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Moon\Log\Log.h">
+      <Filter>Moon\Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Moon\Application.cpp">
       <Filter>Moon</Filter>
     </ClCompile>
-    <ClCompile Include="src\Moon\Log.cpp">
-      <Filter>Moon</Filter>
+    <ClCompile Include="src\Moon\Event\Event.cpp">
+      <Filter>Moon\Event</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
+    <ClCompile Include="src\Moon\Log\Log.cpp">
+      <Filter>Moon\Log</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

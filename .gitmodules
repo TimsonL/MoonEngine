@@ -1,3 +1,6 @@
 [submodule "Moon/vendor/spdlog"]
 	path = Moon/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Moon/vendor/GLFW"]
+	path = Moon/vendor/GLFW
+	url = https://github.com/glfw/glfw.git

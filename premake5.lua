@@ -10,6 +10,11 @@ workspace "MoonEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+include "Moon/vendor/_premake_scripts/GLFW"
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "Moon/vendor/GLFW/include"
+
 project "Moon"
   location "Moon"
   kind "SharedLib"
@@ -30,7 +35,14 @@ project "Moon"
   includedirs
   {
     "%{prj.name}/src",
-    "%{prj.name}/vendor/spdlog/include"
+    "%{prj.name}/vendor/spdlog/include",
+    "%{IncludeDir.GLFW}"
+  }
+
+  links
+  {
+    "GLFW",
+    "opengl32.lib"
   }
 
   filter "system:windows"
