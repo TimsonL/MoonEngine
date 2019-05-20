@@ -18,6 +18,9 @@ project "Moon"
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+  pchheader "pch.h"
+  pchsource "Moon/src/pch.cpp"
+
   files
   {
     "%{prj.name}/src/**.h",
@@ -26,6 +29,7 @@ project "Moon"
 
   includedirs
   {
+    "%{prj.name}/src",
     "%{prj.name}/vendor/spdlog/include"
   }
 

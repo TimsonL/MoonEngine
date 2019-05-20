@@ -19,6 +19,7 @@
     <ClInclude Include="src\Moon\Log.h">
       <Filter>Moon</Filter>
     </ClInclude>
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Moon\Application.cpp">
@@ -27,5 +28,6 @@
     <ClCompile Include="src\Moon\Log.cpp">
       <Filter>Moon</Filter>
     </ClCompile>
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
 </Project>
