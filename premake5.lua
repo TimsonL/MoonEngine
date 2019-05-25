@@ -17,8 +17,10 @@ IncludeDir["GLFW"] = "Moon/vendor/GLFW/include"
 
 project "Moon"
   location "Moon"
-  kind "SharedLib"
+  kind "StaticLib"
   language "C++"
+  cppdialect "C++17"
+  staticruntime "on"
 
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -30,6 +32,11 @@ project "Moon"
   {
     "%{prj.name}/src/**.h",
     "%{prj.name}/src/**.cpp"
+  }
+
+  defines
+  {
+    "_CRT_SECURE_NO_WARNINGS"
   }
 
   includedirs
@@ -46,38 +53,31 @@ project "Moon"
   }
 
   filter "system:windows"
-    cppdialect "C++17"
-    staticruntime "On"
     systemversion "latest"
 
     defines
     {
-      "MOON_PLATFORM_WIN",
-      "MOON_BUILD_DLL",
-      "_WINDLL"
+      "MOON_PLATFORM_WIN"
     }
 
-    postbuildcommands
-    {
-      ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-    }
+  filter "configurations:Debug"
+  defines "MOON_DEBUG"
+  symbols "on"
 
-   filter "configurations:Debug"
-    defines "MOON_DEBUG"
-    symbols "On"
+  filter "configurations:Release"
+  defines "MOON_RELEASE"
+  optimize "on"
 
-   filter "configurations:Release"
-    defines "MOON_RELEASE"
-    optimize "On"
-
-   filter "configurations:Dist"
-    defines "MOON_DIST"
-    optimize "On"
+  filter "configurations:Dist"
+  defines "MOON_DIST"
+  optimize "on"
   
 project "Sandbox"
   location "Sandbox"
   kind "ConsoleApp"
   language "C++"
+  cppdialect "C++17"
+  staticruntime "on"
 
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -100,8 +100,6 @@ project "Sandbox"
   }
 
   filter "system:windows"
-    cppdialect "C++17"
-    staticruntime "On"
     systemversion "latest"
 
     defines
@@ -110,13 +108,13 @@ project "Sandbox"
     }
 
   filter "configurations:Debug"
-  defines "MOON_DEBUG"
-  symbols "On"
+    defines "MOON_DEBUG"
+    symbols "on"
 
   filter "configurations:Release"
-  defines "MOON_RELEASE"
-  optimize "On"
+    defines "MOON_RELEASE"
+    optimize "on"
 
   filter "configurations:Dist"
-  defines "MOON_DIST"
-  optimize "On"
+    defines "MOON_DIST"
+    optimize "on"

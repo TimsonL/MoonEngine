@@ -34,9 +34,6 @@
     <ClCompile Include="src\Moon\Application.cpp">
       <Filter>Moon</Filter>
     </ClCompile>
-    <ClCompile Include="src\Moon\Event\Event.cpp">
-      <Filter>Moon\Event</Filter>
-    </ClCompile>
     <ClCompile Include="src\Moon\Log\Log.cpp">
       <Filter>Moon\Log</Filter>
     </ClCompile>

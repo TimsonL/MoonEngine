@@ -5,12 +5,10 @@ class SandBox : public moon::Application
 public:
   SandBox()
   {
-
   }
 
   ~SandBox()
   {
-
   }
 
 };
