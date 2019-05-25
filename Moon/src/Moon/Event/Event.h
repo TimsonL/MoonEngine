@@ -27,11 +27,11 @@ namespace moon {
     virtual std::string ToString() const { return GetName(); }
 
     template<typename T>
-    static bool Dispatch(EventFn<T> func)
+    bool Dispatch(EventFn<T> func)
     {
-      if (m_Event.GetEventType() == T::GetStaticType())
+      if (GetEventType() == T::GetStaticType())
       {
-        m_Event.Handled = func(*(T*)&m_Event);
+        Handled = func(*(T*)&this);
         return true;
       }
       return false;
