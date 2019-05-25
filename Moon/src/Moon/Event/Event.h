@@ -16,6 +16,8 @@ namespace moon {
 
   class Event
   {
+    template<typename T>
+    using EventFn = std::function<bool(T&)>;
   public:
     bool Handled = false;
 
@@ -23,20 +25,9 @@ namespace moon {
     virtual const char* GetName() const = 0;
 
     virtual std::string ToString() const { return GetName(); }
-  };
-
-  class EventDispatcher
-  {
-    template<typename T>
-    using EventFn = std::function<bool(T&)>;
-  public:
-    EventDispatcher(Event& event)
-      : m_Event(event)
-    {
-    }
 
     template<typename T>
-    bool Dispatch(EventFn<T> func)
+    static bool Dispatch(EventFn<T> func)
     {
       if (m_Event.GetEventType() == T::GetStaticType())
       {
@@ -45,8 +36,6 @@ namespace moon {
       }
       return false;
     }
-  private:
-    Event& m_Event;
   };
 
   inline std::ostream& operator<<(std::ostream& os, const Event& e)
