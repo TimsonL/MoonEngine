@@ -1,7 +1,6 @@
 #pragma once
 
 #include "pch.h"
-#include "Moon/Core.h"
 
 namespace moon {
 
@@ -9,10 +8,13 @@ namespace moon {
   {
     None = 0,
     WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-    AppTick, AppUpdate, AppRender,
     KeyPressed, KeyReleased, KeyTyped,
     MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
   };
+
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+								               EventType GetEventType() const override { return GetStaticType(); }\
+								               const char* GetName() const override { return #type; }
 
   class Event
   {
@@ -44,3 +46,4 @@ namespace moon {
   }
 
 }
+                        

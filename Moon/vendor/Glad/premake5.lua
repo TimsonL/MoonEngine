@@ -6,18 +6,16 @@ project "Glad"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    Gladfiledir = "../../Glad/"
-
     files
     {
-        Gladfiledir .. "include/glad/glad.h",
-        Gladfiledir .. "include/KHR/khrplatform.h",
-        Gladfiledir .. "src/glad.c"
+        "include/glad/glad.h",
+        "include/KHR/khrplatform.h",
+        "src/glad.c"
     }
 
     includedirs
     {
-        Gladfiledir .. "include"
+        "include"
     }
     
     filter "system:windows"
