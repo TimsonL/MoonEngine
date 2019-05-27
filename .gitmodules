@@ -4,3 +4,9 @@
 [submodule "Moon/vendor/GLFW"]
 	path = Moon/vendor/GLFW
 	url = https://github.com/glfw/glfw.git
+[submodule "Moon/vendor/glm"]
+	path = Moon/vendor/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "Moon/vendor/imgui"]
+	path = Moon/vendor/imgui
+	url = https://github.com/TheCherno/imgui.git

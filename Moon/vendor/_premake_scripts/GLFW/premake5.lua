@@ -5,18 +5,18 @@ project "GLFW"
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-  filedir = "../../GLFW/"
+  GLFWfiledir = "../../GLFW/"
 
   files
   {
-    filedir .. "include/GLFW/glfw3.h",
-    filedir .. "include/GLFW/glfw3native.h",
-    filedir .. "src/context.c",
-    filedir .. "src/init.c",
-    filedir .. "src/input.c",
-    filedir .. "src/monitor.c",
-    filedir .. "src/vulkan.c",
-    filedir .. "src/window.c"
+    GLFWfiledir .. "include/GLFW/glfw3.h",
+    GLFWfiledir .. "include/GLFW/glfw3native.h",
+    GLFWfiledir .. "src/context.c",
+    GLFWfiledir .. "src/init.c",
+    GLFWfiledir .. "src/input.c",
+    GLFWfiledir .. "src/monitor.c",
+    GLFWfiledir .. "src/vulkan.c",
+    GLFWfiledir .. "src/window.c"
     }
     
   filter "system:windows"
@@ -25,15 +25,15 @@ project "GLFW"
 
     files
     {
-      filedir .. "src/win32_init.c",
-      filedir .. "src/win32_joystick.c",
-      filedir .. "src/win32_monitor.c",
-      filedir .. "src/win32_time.c",
-      filedir .. "src/win32_thread.c",
-      filedir .. "src/win32_window.c",
-      filedir .. "src/wgl_context.c",
-      filedir .. "src/egl_context.c",
-      filedir .. "src/osmesa_context.c"
+      GLFWfiledir .. "src/win32_init.c",
+      GLFWfiledir .. "src/win32_joystick.c",
+      GLFWfiledir .. "src/win32_monitor.c",
+      GLFWfiledir .. "src/win32_time.c",
+      GLFWfiledir .. "src/win32_thread.c",
+      GLFWfiledir .. "src/win32_window.c",
+      GLFWfiledir .. "src/wgl_context.c",
+      GLFWfiledir .. "src/egl_context.c",
+      GLFWfiledir .. "src/osmesa_context.c"
     }
 
     defines 
