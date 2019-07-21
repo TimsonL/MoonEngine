@@ -15,6 +15,7 @@ IncludeDir["GLFW"]  = "Moon/vendor/glfw/include"
 IncludeDir["Glad"]  = "Moon/vendor/Glad/include"
 IncludeDir["imgui"] = "Moon/vendor/imgui"
 IncludeDir["glm"]   = "Moon/vendor/glm"
+IncludeDir["boost"] = "Moon/vendor/boost"
 
 group "Dependencies"
   include "Moon/vendor/glfw"
@@ -56,7 +57,8 @@ project "Moon"
     "%{IncludeDir.glfw}",
     "%{IncludeDir.Glad}",
     "%{IncludeDir.imgui}",
-    "%{IncludeDir.glm}"
+    "%{IncludeDir.glm}",
+    "%{IncludeDir.boost}"
   }
 
   links
@@ -108,7 +110,8 @@ project "Sandbox"
     "Moon/vendor/spdlog/include",
     "Moon/src",
     "Moon/vendor",
-		"%{IncludeDir.glm}"
+    "%{IncludeDir.glm}",
+    "%{IncludeDir.boost}",
   }
 
   links

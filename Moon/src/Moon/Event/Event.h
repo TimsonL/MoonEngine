@@ -1,49 +1,80 @@
 #pragma once
 
-#include "pch.h"
-
 namespace moon {
 
   enum class EventType
   {
     None = 0,
-    WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
-    KeyPressed, KeyReleased, KeyTyped,
-    MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
+
+    // System Events
+
+    // Window Events
+    WindowClosed,
+    WindowResized,
+    WindowFocused,
+    WindowLostFocus,
+    WindowMoved,
+
+    // Key Events
+    KeyPressed,
+    KeyReleased,
+
+    // Mouse Events
+    MouseButtonPressed,
+    MouseButtonReleased,
+    MouseMoved,
+    MouseScrolled
+
+    // Engine Events
+
+    // Game Events
   };
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-								               EventType GetEventType() const override { return GetStaticType(); }\
-								               const char* GetName() const override { return #type; }
-
-  class Event
-  {
-    template<typename T>
-    using EventFn = std::function<bool(T&)>;
+  class Event {
   public:
-    bool Handled = false;
+    using Data = std::unordered_map<std::string, boost::any>;
 
-    virtual EventType GetEventType() const = 0;
-    virtual const char* GetName() const = 0;
+    Event(EventType type, Data&& data) : m_type(type), m_data(data) {}
+    Event(const Event&) = delete;
 
-    virtual std::string ToString() const { return GetName(); }
+    EventType GetType() { return m_type; }
+    Data& GetData() { return m_data; }
 
-    template<typename T>
-    bool Dispatch(EventFn<T> func)
-    {
-      if (GetEventType() == T::GetStaticType())
-      {
-        Handled = func(*(T*)&this);
-        return true;
-      }
-      return false;
+    boost::any& operator[](const std::string& key) { 
+      auto it = m_data.find(key);
+      if (it != m_data.end()) return it->second;
+      MOON_CORE_ERROR("Event does not have the requested attribute");
+      assert(0);
     }
+    const boost::any& operator[](const std::string& key) const { return operator[](key); }
+  private:
+    EventType m_type;
+  protected:
+    Data m_data;
   };
 
-  inline std::ostream& operator<<(std::ostream& os, const Event& e)
-  {
-    return os << e.ToString();
-  }
+  template<typename EventCategory>
+  class EventDispatcher {
+  public:
+    class EventListener;
+
+    void AddListener(EventType, EventListener* listener);
+    void RemoveListener(EventType, EventListener* listener);
+
+    void dispatch(const EventCategory& e);
+  private:
+    std::unordered_map<EventType, std::vector<EventListener*>> m_listeners;
+  };
+
+  class EventListener {
+  public:
+    void subscribe(EventType type);
+    void unsubscribe(EventType type);
+
+    virtual void OnEvent(EventType type, const Event::Data& data) const = 0;
+  private:
+    std::unordered_set<EventType> m_subscriptions;
+  };
 
 }
                         

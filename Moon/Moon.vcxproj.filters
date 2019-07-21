@@ -10,6 +10,9 @@
     <Filter Include="src\Moon\Event">
       <UniqueIdentifier>{260CAE1C-12DA-A122-FB6D-1249E7DA7D87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Moon\Layer">
+      <UniqueIdentifier>{A187211D-8D55-1523-76E9-85496256F187}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Moon\Log">
       <UniqueIdentifier>{66E94827-524C-D8CB-FBD1-1082E713A44E}</UniqueIdentifier>
     </Filter>
@@ -51,8 +54,11 @@
     <ClInclude Include="src\Moon\Event\Event.h">
       <Filter>src\Moon\Event</Filter>
     </ClInclude>
-    <ClInclude Include="src\Moon\Event\KeyEvent.h">
-      <Filter>src\Moon\Event</Filter>
+    <ClInclude Include="src\Moon\Layer\Layer.h">
+      <Filter>src\Moon\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Moon\Layer\LayerStack.h">
+      <Filter>src\Moon\Layer</Filter>
     </ClInclude>
     <ClInclude Include="src\Moon\Log\Log.h">
       <Filter>src\Moon\Log</Filter>
@@ -1152,10 +1158,22 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="src\Moon\Event\SystemEvent.h" />
+    <ClInclude Include="src\Moon\Event\AppEvent.h" />
+    <ClInclude Include="src\Moon\Event\EngineEvent.h" />
+    <ClInclude Include="src\Moon\Event\KeyEvent.h" />
+    <ClInclude Include="src\Moon\Event\MouseEvent.h" />
+    <ClInclude Include="src\Moon\Event\WindowEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Moon\Application.cpp">
       <Filter>src\Moon</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Moon\Layer\Layer.cpp">
+      <Filter>src\Moon\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Moon\Layer\LayerStack.cpp">
+      <Filter>src\Moon\Layer</Filter>
     </ClCompile>
     <ClCompile Include="src\Moon\Log\Log.cpp">
       <Filter>src\Moon\Log</Filter>
@@ -1163,5 +1181,6 @@
     <ClCompile Include="src\pch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Moon\Event\Event.cpp" />
   </ItemGroup>
 </Project>
