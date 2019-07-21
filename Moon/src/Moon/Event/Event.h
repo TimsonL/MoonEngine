@@ -1,5 +1,7 @@
 #pragma once
 
+#include "pch.h"
+
 namespace moon {
 
   enum class EventType
@@ -23,9 +25,10 @@ namespace moon {
     MouseButtonPressed,
     MouseButtonReleased,
     MouseMoved,
-    MouseScrolled
+    MouseScrolled,
 
     // Engine Events
+    EngineUpdate
 
     // Game Events
   };
@@ -36,28 +39,28 @@ namespace moon {
 
     Event(EventType type, Data&& data) : m_type(type), m_data(data) {}
     Event(const Event&) = delete;
+    virtual ~Event() = default;
 
-    EventType GetType() { return m_type; }
-    Data& GetData() { return m_data; }
+    virtual EventType GetType() const { return m_type; }
+    virtual const Data& GetData() const { return m_data; }
 
-    boost::any& operator[](const std::string& key) { 
+    const boost::any& operator[](const std::string& key) const {
       auto it = m_data.find(key);
       if (it != m_data.end()) return it->second;
       MOON_CORE_ERROR("Event does not have the requested attribute");
       assert(0);
     }
-    const boost::any& operator[](const std::string& key) const { return operator[](key); }
   private:
     EventType m_type;
   protected:
     Data m_data;
   };
 
+  class EventListener;
+
   template<typename EventCategory>
   class EventDispatcher {
   public:
-    class EventListener;
-
     void AddListener(EventType, EventListener* listener);
     void RemoveListener(EventType, EventListener* listener);
 

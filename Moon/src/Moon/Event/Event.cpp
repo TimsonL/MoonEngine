@@ -1,5 +1,12 @@
 #include "pch.h"
+
 #include "Event.h"
+#include "EngineEvent.h"
+#include "SystemEvent.h"
+#include "WindowEvent.h"
+#include "KeyEvent.h"
+#include "MouseEvent.h"
+#include "AppEvent.h"
 
 namespace moon {
 
@@ -8,7 +15,7 @@ namespace moon {
   {
     auto it = m_listeners.find(type);
     if (it != m_listeners.end()) {
-      auto& listeners = *it;
+      auto& listeners = it->second;
       for (auto l : listeners) {
         if (listener == l) {
           MOON_CORE_WARN("EventListener already registered");
@@ -16,19 +23,24 @@ namespace moon {
         }
       }
       listeners.push_back(listener);
-      listener->subscribe();
+      listener->subscribe(type);
+    }
+    else {
+      std::vector<EventListener*> newChannel;
+      newChannel.push_back(listener);
+      m_listeners[type] = std::move(newChannel);
     }
   }
-  
+
   template<typename EventCategory>
   void EventDispatcher<EventCategory>::RemoveListener(EventType type, EventListener* listener)
   {
     auto it = m_listeners.find(type);
     if (it != m_listeners.end()) {
-      auto& listeners = *it;
+      auto& listeners = it->second;
       for (auto it = listeners.begin(); it != listeners.end(); ++it) {
         if (listener == *it) {
-          listener->unsubscribe();
+          listener->unsubscribe(type);
           listeners.erase(it);
           return;
         }
@@ -47,6 +59,14 @@ namespace moon {
     }
   }
 
+  // explicit instantiations
+  template class EventDispatcher<SystemEvent>;
+  template class EventDispatcher<EngineEvent>;
+  template class EventDispatcher<WindowEvent>;
+  template class EventDispatcher<KeyEvent>;
+  template class EventDispatcher<MouseEvent>;
+  template class EventDispatcher<AppEvent>;
+
   void EventListener::subscribe(EventType type)
   {
     m_subscriptions.emplace(type);
@@ -56,5 +76,4 @@ namespace moon {
   {
     m_subscriptions.erase(type);
   }
-
 }

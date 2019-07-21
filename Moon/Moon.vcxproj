@@ -521,8 +521,8 @@
     <ClInclude Include="src\Moon\Event\WindowEvent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Moon\Event\Event.cpp" />
     <ClCompile Include="src\Moon\Application.cpp" />
+    <ClCompile Include="src\Moon\Event\Event.cpp" />
     <ClCompile Include="src\Moon\Layer\Layer.cpp" />
     <ClCompile Include="src\Moon\Layer\LayerStack.cpp" />
     <ClCompile Include="src\Moon\Log\Log.cpp" />

@@ -4,10 +4,10 @@
 
 namespace moon {
 
-  class SystemEvent : Event
+  class SystemEvent : public Event
   {
   public:
-    SystemEvent(EventType type, Data&& data) : Event(type, data) {}
+    SystemEvent(EventType type, Data&& data) : Event(type, std::move(data)) {}
   };
 
 }
