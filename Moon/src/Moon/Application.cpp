@@ -3,7 +3,6 @@
 #include "Application.h"
 
 namespace moon {
-  extern template class EventDispatcher<EngineEvent>;
 
   Application::Application()
   {
