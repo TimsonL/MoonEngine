@@ -7,7 +7,8 @@ namespace moon {
   class AppEvent : public Event
   {
   public:
-    AppEvent(EventType type, Data&& data) : Event(type, std::move(data)) {}
+    AppEvent() : Event() {}
+    AppEvent(Data&& data) : Event(std::move(data)) {}
   };
 
 }

@@ -5,7 +5,7 @@
 
 namespace moon {
 
-  class Application : public EventListener
+  class Application
   {
   public:
     Application();
@@ -13,11 +13,11 @@ namespace moon {
 
     void Run();
 
-    void OnEvent(EventType type, const Event::Data& data) const override {
-      if (EventType::EngineUpdate == type) MOON_INFO("Engine Update Event Proccessed");
+    void onEngineEvent(const EngineEvent* event) {
+      MOON_INFO("Engine Update Event Proccessed");
     }
   protected:
-    EventDispatcher<EngineEvent> m_engineEventDispatcher;
+    EventDispatcher m_dispatcher;
   };
 
   Application* CreateApplication();

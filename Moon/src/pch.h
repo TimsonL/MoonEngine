@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <functional>
 #include <sstream>
+#include <typeinfo>
+#include <typeindex>
 
 #include <string>
 #include <vector>

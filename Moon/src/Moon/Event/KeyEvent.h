@@ -7,7 +7,8 @@ namespace moon {
   class KeyEvent : public Event
   {
   public:
-    KeyEvent(EventType type, Data&& data) : Event(type, std::move(data)) {}
+    KeyEvent() : Event() {}
+    KeyEvent(Data&& data) : Event(std::move(data)) {}
   };
 
 }

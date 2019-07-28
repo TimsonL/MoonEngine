@@ -6,7 +6,7 @@ namespace moon {
 
   Application::Application()
   {
-    m_engineEventDispatcher.AddListener(EventType::EngineUpdate, this);
+    m_dispatcher.RegisterEventCallback(this, &Application::onEngineEvent);
   }
 
 
@@ -19,7 +19,8 @@ namespace moon {
   {
     while (true)
     {
-      m_engineEventDispatcher.dispatch({ EventType::EngineUpdate, Event::Data() });
+      EngineEvent event;
+      m_dispatcher.dispatch(&event);
     }
   }
 

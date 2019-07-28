@@ -7,7 +7,8 @@ namespace moon {
   class EngineEvent : public Event
   {
   public:
-    EngineEvent(EventType type, Data&& data) : Event(type, std::move(data)) {}
+    EngineEvent() : Event() {}
+    EngineEvent(Data&& data) : Event(std::move(data)) {}
   };
 }
 

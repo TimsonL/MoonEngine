@@ -4,45 +4,12 @@
 
 namespace moon {
 
-  enum class EventType
-  {
-    None = 0,
-
-    // System Events
-
-    // Window Events
-    WindowClosed,
-    WindowResized,
-    WindowFocused,
-    WindowLostFocus,
-    WindowMoved,
-
-    // Key Events
-    KeyPressed,
-    KeyReleased,
-
-    // Mouse Events
-    MouseButtonPressed,
-    MouseButtonReleased,
-    MouseMoved,
-    MouseScrolled,
-
-    // Engine Events
-    EngineUpdate
-
-    // Game Events
-  };
-
   class Event {
   public:
     using Data = std::unordered_map<std::string, boost::any>;
 
-    Event(EventType type, Data&& data) : m_type(type), m_data(data) {}
-    Event(const Event&) = delete;
-    virtual ~Event() = default;
-
-    virtual EventType GetType() const { return m_type; }
-    virtual const Data& GetData() const { return m_data; }
+    Event() {}
+    Event(Data&& data) : m_data(data) {}
 
     const boost::any& operator[](const std::string& key) const {
       auto it = m_data.find(key);
@@ -50,34 +17,57 @@ namespace moon {
       MOON_CORE_ERROR("Event does not have the requested attribute");
       assert(0);
     }
-  private:
-    EventType m_type;
   protected:
     Data m_data;
   };
 
-  class EventListener;
+  class EventCallback;
 
-  template<typename EventCategory>
   class EventDispatcher {
   public:
-    void AddListener(EventType, EventListener* listener);
-    void RemoveListener(EventType, EventListener* listener);
+    template<class EventT>
+    void dispatch(const EventT* event)
+    {
+      auto it = m_callbacks.find(typeid(*event));
+      if (it != m_callbacks.end())
+      {
+        for (auto& callback : it->second) callback->exec(event);
+      }
+    }
 
-    void dispatch(const EventCategory& e);
+    template<class T, class EventT>
+    void RegisterEventCallback(T* object, void(T::*memberFn)(const EventT*))
+    {
+      std::type_index id = typeid(EventT);
+      m_callbacks[id].push_back(std::make_unique<MemberCallback<T, EventT>>(object, memberFn));
+    }
   private:
-    std::unordered_map<EventType, std::vector<EventListener*>> m_listeners;
+    using Callbacks = std::map< std::type_index, std::vector<std::unique_ptr<EventCallback>>>;
+    Callbacks m_callbacks;
   };
 
-  class EventListener {
+  class EventCallback {
   public:
-    void subscribe(EventType type);
-    void unsubscribe(EventType type);
-
-    virtual void OnEvent(EventType type, const Event::Data& data) const = 0;
+    void exec(const Event* event) { call(event); }
   private:
-    std::unordered_set<EventType> m_subscriptions;
+    virtual void call(const Event* event) = 0;
   };
 
+  template <class T, class EventT >
+  class MemberCallback : public EventCallback
+  {
+  public:
+    using MemberFunc = void(T::*)(const EventT*);
+    MemberCallback(T* object, MemberFunc memFn) : m_object(object), m_callback(memFn) {};
+
+    void call(const Event* event)
+    {
+      (m_object->*m_callback)(static_cast<const EventT*>(event));
+    }
+
+  private:
+    T* m_object;
+    MemberFunc m_callback;
+  };
 }
                         

@@ -7,7 +7,8 @@ namespace moon {
   class WindowEvent : public Event
   {
   public:
-    WindowEvent(EventType type, Data&& data) : Event(type, std::move(data)) {}
+    WindowEvent() : Event() {}
+    WindowEvent(Data&& data) : Event(std::move(data)) {}
   };
 
 }
